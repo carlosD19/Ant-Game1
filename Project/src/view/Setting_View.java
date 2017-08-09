@@ -23,6 +23,7 @@ public class Setting_View extends javax.swing.JFrame {
     int column = 0;
     int cube = 0;
     Ant ant = new Ant();
+    
     public Setting_View(int rows, int columns, int cubes) {
         row = rows;
         column = columns;

@@ -5,6 +5,7 @@
  */
 package view;
 
+import classModel.Ant;
 import java.awt.Label;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import classModel.Label1;
+import java.util.Random;
 
 /**
  *
@@ -24,13 +26,20 @@ import classModel.Label1;
  */
 public class Game_View extends javax.swing.JFrame {
 
+    Ant ant = new Ant();
     public int row = 7; //12 Max
     public int column = 7; //22 Max
     public int cube = 5; //11 Max
-    Label1[][] labels;
-    int[][] labelsLogic;
-    AudioClip alert;
+    public static Label1[][] labels;
+    public static int[][] labelsLogic;
+    public static int x = 0; //row
+    public static int y = 0; //column
+    public static AudioClip alert;
+    public static AudioClip alert2;
+    public static int movements = 0;
+    public static int position;
     Border border = LineBorder.createBlackLineBorder();
+    boolean bus = true;
 
     public Game_View(int rows1, int columns1, int cubes1) {
         row = rows1;
@@ -41,6 +50,9 @@ public class Game_View extends javax.swing.JFrame {
         initComponents();
         remove_backGround();
         labels();
+        ant.setRow(row);
+        ant.setColumn(column);
+
     }
 
     /**
@@ -56,11 +68,8 @@ public class Game_View extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
         jLabelPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        playButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        time = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        moveJLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,6 +94,12 @@ public class Game_View extends javax.swing.JFrame {
         });
         getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 0, 50, 50));
 
+        jLabelPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabelPanelKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLabelPanelLayout = new javax.swing.GroupLayout(jLabelPanel);
         jLabelPanel.setLayout(jLabelPanelLayout);
         jLabelPanelLayout.setHorizontalGroup(
@@ -103,33 +118,15 @@ public class Game_View extends javax.swing.JFrame {
         jLabel2.setText("DRUNK ANT");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, -1));
 
-        playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/play.png"))); // NOI18N
-        playButton.setFocusable(false);
-        getContentPane().add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 70, 60));
-
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(176, 196, 222));
-        jLabel3.setText("TIME:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
-
-        time.setEditable(false);
-        time.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        time.setForeground(new java.awt.Color(176, 196, 222));
-        time.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        time.setText("0:00");
-        time.setBorder(null);
-        time.setFocusable(false);
-        getContentPane().add(time, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, 40, 20));
-
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(176, 196, 222));
         jLabel4.setText("MOVEMENTS: ");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(176, 196, 222));
-        jLabel5.setText("0");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 40, 20));
+        moveJLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        moveJLabel.setForeground(new java.awt.Color(176, 196, 222));
+        moveJLabel.setText("0");
+        getContentPane().add(moveJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 40, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/background nature.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
@@ -147,6 +144,35 @@ public class Game_View extends javax.swing.JFrame {
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_settingsButtonActionPerformed
+
+    private void jLabelPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabelPanelKeyPressed
+        Random rnd = new Random();
+        int random = (int) (rnd.nextDouble() * 4 + 37);
+        if (ant.getAlcohol() >= 10) {
+            if (ant.moveAnt(random)) {
+                if (bus) {
+                    alert2 = java.applet.Applet.newAudioClip(getClass().getResource("/icones/gameSound.wav"));
+                    alert2.loop();
+                    bus = false;
+                }
+                movementsAnt();
+            } else {
+                errorSound();
+            }
+        } else {
+            ant.moveAnt(evt.getKeyCode());
+            if (bus) {
+                alert2 = java.applet.Applet.newAudioClip(getClass().getResource("/icones/gameSound.wav"));
+                alert2.loop();
+                bus = false;
+
+                movementsAnt();
+            } else {
+                errorSound();
+            }
+        }
+
+    }//GEN-LAST:event_jLabelPanelKeyPressed
 
     /**
      * @param args the command line arguments
@@ -184,25 +210,28 @@ public class Game_View extends javax.swing.JFrame {
         settingsButton.setBorder(null);
         closeButton.setContentAreaFilled(false);
         closeButton.setBorder(null);
-        playButton.setContentAreaFilled(false);
-        playButton.setBorder(null);
-        time.setOpaque(false);
         jLabelPanel.setFocusable(true);
         jLabelPanel.setOpaque(false);
         setIconImage(new ImageIcon(getClass().getResource("../icones/game.png")).getImage());
 
     }
-    
+
     public void errorSound() {
         alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/error.wav"));
         alert.play();
     }
 
-    public void verifyMovement() {
-        alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/error.wav"));
+    public void movementsAnt() {
+        movements++;
+        moveJLabel.setText(String.valueOf(movements));
+        alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/move.WAV"));
         alert.play();
     }
 
+//    public void random() {
+//        
+//        System.out.println(random);
+//    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -239,13 +268,10 @@ public class Game_View extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jLabelPanel;
-    private javax.swing.JButton playButton;
+    private javax.swing.JLabel moveJLabel;
     private javax.swing.JButton settingsButton;
-    private javax.swing.JTextField time;
     // End of variables declaration//GEN-END:variables
 
 }
