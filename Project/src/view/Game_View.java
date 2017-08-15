@@ -143,21 +143,17 @@ public class Game_View extends javax.swing.JFrame {
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        dispose();
     }//GEN-LAST:event_settingsButtonActionPerformed
 
     private void jLabelPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabelPanelKeyPressed
-        Random rnd = new Random();
-        int random = (int) (rnd.nextDouble() * 4 + 37);
+
         if (ant.getAlcohol() >= 10) {
-            while (random != position) {//Validar el random.
-                if (ant.moveAnt(random)) {
-                    movementsAnt();
-                    bus = true;
-                    break;
-                } else {
-                    random = (int) (rnd.nextDouble() * 4 + 37);
-                }
-            }//40 abajo 
+
+            ant.HipMoveAnt();
+            movementsAnt();
+            bus = true;
+            return;
 
         } else if (ant.moveAnt(evt.getKeyCode())) {
             movementsAnt();
@@ -235,7 +231,7 @@ public class Game_View extends javax.swing.JFrame {
                 l++;
             }
         }
-      
+
         while (p <= cube) {
             int w = (int) (Math.random() * row) + 0;
             int i = (int) (Math.random() * column) + 0;
@@ -244,7 +240,7 @@ public class Game_View extends javax.swing.JFrame {
                 p++;
             }
         }
-        
+
         while (j <= cube) {
             int w = (int) (Math.random() * row) + 0;
             int i = (int) (Math.random() * column) + 0;
@@ -256,7 +252,7 @@ public class Game_View extends javax.swing.JFrame {
 
         for (int n = 0; n < labelsLogic.length; n++) {
             for (int o = 0; o < labelsLogic[n].length; o++) {
-                System.out.print(labelsLogic[n][o]+" ");
+                System.out.print(labelsLogic[n][o] + " ");
             }
             System.out.println("");
         }

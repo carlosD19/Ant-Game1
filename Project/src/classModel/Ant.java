@@ -7,6 +7,7 @@ package classModel;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import view.Game_View;
 
@@ -114,8 +115,7 @@ public class Ant implements MoveAnt {
             Game_View.alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/win.WAV"));
             Game_View.alert.play();
             Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoF.jpg")));
-            JOptionPane.showMessageDialog(null, "¡¡¡YOU WIN!!!");
-
+            
         }
         return bus;
 
@@ -195,5 +195,55 @@ public class Ant implements MoveAnt {
             bus = true;
 
         }
+    }
+
+    @Override
+    public boolean HipMoveAnt() {
+        int p = 0;
+        while (p < 1) {
+            Random rnd = new Random();
+            int random = (int) (rnd.nextDouble() * 4 + 37);
+            switch (random) {
+
+                case KeyEvent.VK_UP:
+                    upMove(random);
+                    if (bus) {
+                        p++;
+                        break;
+                    }
+
+                case KeyEvent.VK_DOWN:
+                    downMove(random);
+                    if (bus) {
+                        p++;
+                        break;
+                    }
+
+                case KeyEvent.VK_RIGHT:
+                    rightMove(random);
+                    if (bus) {
+                        p++;
+                        break;
+                    }
+
+                case KeyEvent.VK_LEFT:
+                    leftMove(random);
+                    if (bus) {
+                        p++;
+                        break;
+                    }
+
+            }
+
+        }
+        if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[row - 1][column - 1]) {
+            moveX.add(Game_View.x);
+            moveY.add(Game_View.y);
+            Game_View.alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/win.WAV"));
+            Game_View.alert.play();
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoF.jpg")));
+            
+        }
+        return bus;
     }
 }
