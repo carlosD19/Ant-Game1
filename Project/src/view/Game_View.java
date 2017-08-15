@@ -38,8 +38,8 @@ public class Game_View extends javax.swing.JFrame {
     public static AudioClip alert2;
     public static int movements = 0;
     public static int position;
+    boolean bus = false;
     Border border = LineBorder.createBlackLineBorder();
-    boolean bus = true;
 
     public Game_View(int rows1, int columns1, int cubes1) {
         row = rows1;
@@ -52,7 +52,7 @@ public class Game_View extends javax.swing.JFrame {
         labels();
         ant.setRow(row);
         ant.setColumn(column);
-
+        random();
     }
 
     /**
@@ -149,27 +149,22 @@ public class Game_View extends javax.swing.JFrame {
         Random rnd = new Random();
         int random = (int) (rnd.nextDouble() * 4 + 37);
         if (ant.getAlcohol() >= 10) {
-            if (ant.moveAnt(random)) {
-                if (bus) {
-                    alert2 = java.applet.Applet.newAudioClip(getClass().getResource("/icones/gameSound.wav"));
-                    alert2.loop();
-                    bus = false;
+            while (random != position) {//Validar el random.
+                if (ant.moveAnt(random)) {
+                    movementsAnt();
+                    bus = true;
+                    break;
+                } else {
+                    random = (int) (rnd.nextDouble() * 4 + 37);
                 }
-                movementsAnt();
-            } else {
-                errorSound();
-            }
-        } else {
-            ant.moveAnt(evt.getKeyCode());
-            if (bus) {
-                alert2 = java.applet.Applet.newAudioClip(getClass().getResource("/icones/gameSound.wav"));
-                alert2.loop();
-                bus = false;
+            }//40 abajo 
 
-                movementsAnt();
-            } else {
-                errorSound();
-            }
+        } else if (ant.moveAnt(evt.getKeyCode())) {
+            movementsAnt();
+            return;
+        } else {
+            errorSound();
+            return;
         }
 
     }//GEN-LAST:event_jLabelPanelKeyPressed
@@ -228,10 +223,46 @@ public class Game_View extends javax.swing.JFrame {
         alert.play();
     }
 
-//    public void random() {
-//        
-//        System.out.println(random);
-//    }
+    public void random() {
+        int l = 1;
+        int p = 1;
+        int j = 1;
+        while (l <= cube) {
+            int w = (int) (Math.random() * row) + 0;
+            int i = (int) (Math.random() * column) + 0;
+            if (labelsLogic[w][i] == 0) {
+                labelsLogic[w][i] = 3; //Azucar
+                l++;
+            }
+        }
+      
+        while (p <= cube) {
+            int w = (int) (Math.random() * row) + 0;
+            int i = (int) (Math.random() * column) + 0;
+            if (labelsLogic[w][i] == 0) {
+                labelsLogic[w][i] = 4; //Alcohol
+                p++;
+            }
+        }
+        
+        while (j <= cube) {
+            int w = (int) (Math.random() * row) + 0;
+            int i = (int) (Math.random() * column) + 0;
+            if (labelsLogic[w][i] == 0) {
+                labelsLogic[w][i] = 5; //Veneno
+                j++;
+            }
+        }
+
+        for (int n = 0; n < labelsLogic.length; n++) {
+            for (int o = 0; o < labelsLogic[n].length; o++) {
+                System.out.print(labelsLogic[n][o]+" ");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -18,7 +18,7 @@ public class Project {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game_View view = new Game_View(12,22,5);
+        Game_View view = new Game_View(7,7,5);
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);

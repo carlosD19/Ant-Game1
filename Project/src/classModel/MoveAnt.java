@@ -12,5 +12,5 @@ package classModel;
 public interface MoveAnt {
     
     public boolean moveAnt(int move);
-    public boolean moveHipAnt(int move);
+    
 }
