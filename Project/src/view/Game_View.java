@@ -70,6 +70,12 @@ public class Game_View extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         moveJLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        healthLabel = new javax.swing.JLabel();
+        alcoholLabel = new javax.swing.JLabel();
+        posionLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,13 +126,43 @@ public class Game_View extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(176, 196, 222));
-        jLabel4.setText("MOVEMENTS: ");
+        jLabel4.setText("MOVEMENTS : ");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
 
         moveJLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         moveJLabel.setForeground(new java.awt.Color(176, 196, 222));
         moveJLabel.setText("0");
-        getContentPane().add(moveJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 40, 20));
+        getContentPane().add(moveJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 520, 40, 20));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(176, 196, 222));
+        jLabel3.setText("HEALTH :");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 90, 20));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(176, 196, 222));
+        jLabel5.setText("ALCOHOL :");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 100, 20));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(176, 196, 222));
+        jLabel6.setText("POSION :");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, 80, -1));
+
+        healthLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        healthLabel.setForeground(new java.awt.Color(176, 196, 222));
+        healthLabel.setText("100");
+        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 50, 20));
+
+        alcoholLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        alcoholLabel.setForeground(new java.awt.Color(176, 196, 222));
+        alcoholLabel.setText("0");
+        getContentPane().add(alcoholLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 580, 40, 20));
+
+        posionLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        posionLabel.setForeground(new java.awt.Color(176, 196, 222));
+        posionLabel.setText("0");
+        getContentPane().add(posionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 40, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/background nature.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
@@ -149,7 +185,6 @@ public class Game_View extends javax.swing.JFrame {
     private void jLabelPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabelPanelKeyPressed
 
         if (ant.getAlcohol() >= 10) {
-
             ant.HipMoveAnt();
             movementsAnt();
             bus = true;
@@ -292,12 +327,18 @@ public class Game_View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel alcoholLabel;
     private javax.swing.JButton closeButton;
+    private javax.swing.JLabel healthLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jLabelPanel;
     private javax.swing.JLabel moveJLabel;
+    private javax.swing.JLabel posionLabel;
     private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
 

@@ -90,7 +90,7 @@ public class Ant implements MoveAnt {
 
     @Override
     public boolean moveAnt(int move) {
-
+        bus = false;
         switch (move) {
             case KeyEvent.VK_UP:
                 upMove(move);
@@ -121,84 +121,10 @@ public class Ant implements MoveAnt {
 
     }
 
-    public void upMove(int event) {
-        if (event == Game_View.position) {
-            bus = false;
-
-        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[0][Game_View.y]) {
-            bus = false;
-
-        } else {
-            moveX.add(Game_View.x);
-            moveY.add(Game_View.y);
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
-            Game_View.x--;
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
-            Game_View.position = KeyEvent.VK_DOWN;
-            bus = true;
-
-        }
-    }
-
-    public void downMove(int event) {
-        if (event == Game_View.position) {
-            bus = false;
-
-        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[row - 1][Game_View.y]) {
-            bus = false;
-
-        } else {
-            moveX.add(Game_View.x);
-            moveY.add(Game_View.y);
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
-            Game_View.x++;
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
-            Game_View.position = KeyEvent.VK_UP;
-            bus = true;
-
-        }
-    }
-
-    public void rightMove(int event) {
-        if (KeyEvent.VK_RIGHT == Game_View.position) {
-            bus = false;
-
-        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[Game_View.x][column - 1]) {
-            bus = false;
-
-        } else {
-            moveX.add(Game_View.x);
-            moveY.add(Game_View.y);
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
-            Game_View.y++;
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
-            Game_View.position = KeyEvent.VK_LEFT;
-            bus = true;
-
-        }
-    }
-
-    public void leftMove(int event) {
-        if (KeyEvent.VK_LEFT == Game_View.position) {
-            bus = false;
-
-        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[Game_View.x][0]) {
-            bus = false;
-
-        } else {
-            moveX.add(Game_View.x);
-            moveY.add(Game_View.y);
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
-            Game_View.y--;
-            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
-            Game_View.position = KeyEvent.VK_RIGHT;
-            bus = true;
-
-        }
-    }
 
     @Override
     public boolean HipMoveAnt() {
+        bus = false;
         int p = 0;
         while (p < 1) {
             Random rnd = new Random();
@@ -245,5 +171,108 @@ public class Ant implements MoveAnt {
             
         }
         return bus;
+    }
+    
+    public void upMove(int event) {
+        
+        if (event == Game_View.position) {
+            bus = false;
+
+        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[0][Game_View.y]) {
+            bus = false;
+
+        } else {           
+            moveX.add(Game_View.x);
+            moveY.add(Game_View.y);
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
+            Game_View.x--;
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
+            verifyCubes();
+            Game_View.position = KeyEvent.VK_DOWN;
+            bus = true;
+
+        }
+    }
+
+    public void downMove(int event) {
+        
+        if (event == Game_View.position) {
+            bus = false;
+
+        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[row - 1][Game_View.y]) {
+            bus = false;
+
+        } else {
+            moveX.add(Game_View.x);
+            moveY.add(Game_View.y);
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
+            Game_View.x++;
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
+            verifyCubes();
+            Game_View.position = KeyEvent.VK_UP;
+            bus = true;
+
+        }
+    }
+
+    public void rightMove(int event) {
+        
+        if (KeyEvent.VK_RIGHT == Game_View.position) {
+            bus = false;
+
+        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[Game_View.x][column - 1]) {
+            bus = false;
+
+        } else {   
+            moveX.add(Game_View.x);
+            moveY.add(Game_View.y);
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
+            Game_View.y++;
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
+            verifyCubes();
+            Game_View.position = KeyEvent.VK_LEFT;
+            bus = true;
+
+        }
+    }
+
+    public void leftMove(int event) {
+        
+        if (KeyEvent.VK_LEFT == Game_View.position) {
+            bus = false;
+
+        } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[Game_View.x][0]) {
+            bus = false;
+
+        } else {
+            moveX.add(Game_View.x);
+            moveY.add(Game_View.y);
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
+            Game_View.y--;
+            Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Ant.jpg")));
+            verifyCubes();
+            Game_View.position = KeyEvent.VK_RIGHT;
+            bus = true;
+
+        }
+    }
+    
+    public void verifyCubes(){
+        switch (Game_View.labelsLogic[Game_View.x][Game_View.y]) {
+            case 3:
+                salud += 10;
+                System.out.println(salud);
+                break;
+            case 4:
+                alcohol += 1;
+                System.out.println(alcohol);
+                break;
+            case 5:
+                poison += 10;
+                System.out.println(poison);
+                break;
+            default:
+                break;
+        }
     }
 }
