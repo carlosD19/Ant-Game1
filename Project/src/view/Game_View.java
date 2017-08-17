@@ -27,6 +27,7 @@ import java.util.Random;
 public class Game_View extends javax.swing.JFrame {
 
     Ant ant = new Ant();
+    String name = "";
     public int row = 7; //12 Max
     public int column = 7; //22 Max
     public int cube = 5; //11 Max
@@ -41,7 +42,8 @@ public class Game_View extends javax.swing.JFrame {
     boolean bus = false;
     Border border = LineBorder.createBlackLineBorder();
 
-    public Game_View(int rows1, int columns1, int cubes1) {
+    public Game_View(int rows1, int columns1, int cubes1, String name1) {
+        name = name1;
         row = rows1;
         column = columns1;
         cube = cubes1;
@@ -75,7 +77,10 @@ public class Game_View extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         healthLabel = new javax.swing.JLabel();
         alcoholLabel = new javax.swing.JLabel();
-        posionLabel = new javax.swing.JLabel();
+        poisonLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        stateLabel = new javax.swing.JLabel();
+        nickNameLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -127,42 +132,57 @@ public class Game_View extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(176, 196, 222));
         jLabel4.setText("MOVEMENTS : ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
 
         moveJLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         moveJLabel.setForeground(new java.awt.Color(176, 196, 222));
         moveJLabel.setText("0");
-        getContentPane().add(moveJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 520, 40, 20));
+        getContentPane().add(moveJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, 40, 20));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(176, 196, 222));
         jLabel3.setText("HEALTH :");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 90, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, 90, 20));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(176, 196, 222));
         jLabel5.setText("ALCOHOL :");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 100, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 100, 20));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(176, 196, 222));
-        jLabel6.setText("POSION :");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, 80, -1));
+        jLabel6.setText("POISON :");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 80, -1));
 
         healthLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         healthLabel.setForeground(new java.awt.Color(176, 196, 222));
         healthLabel.setText("100");
-        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 50, 20));
+        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 570, 50, 20));
 
         alcoholLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         alcoholLabel.setForeground(new java.awt.Color(176, 196, 222));
         alcoholLabel.setText("0");
-        getContentPane().add(alcoholLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 580, 40, 20));
+        getContentPane().add(alcoholLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 600, 40, 20));
 
-        posionLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        posionLabel.setForeground(new java.awt.Color(176, 196, 222));
-        posionLabel.setText("0");
-        getContentPane().add(posionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 40, 20));
+        poisonLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        poisonLabel.setForeground(new java.awt.Color(176, 196, 222));
+        poisonLabel.setText("0");
+        getContentPane().add(poisonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 630, 40, 20));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(176, 196, 222));
+        jLabel7.setText("STATE :");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
+
+        stateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        stateLabel.setForeground(new java.awt.Color(176, 196, 222));
+        stateLabel.setText("Sober");
+        getContentPane().add(stateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 100, -1));
+
+        nickNameLabel.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        nickNameLabel.setForeground(new java.awt.Color(176, 196, 222));
+        nickNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(nickNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 150, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/background nature.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
@@ -175,7 +195,7 @@ public class Game_View extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
-        Setting_View view = new Setting_View(row, column, cube);
+        Setting_View view = new Setting_View(row, column, cube, name);
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -184,13 +204,15 @@ public class Game_View extends javax.swing.JFrame {
 
     private void jLabelPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabelPanelKeyPressed
 
-        if (ant.getAlcohol() >= 10) {
-            ant.HipMoveAnt();
-            movementsAnt();
-            bus = true;
-            return;
-
-        } else if (ant.moveAnt(evt.getKeyCode())) {
+//        if (ant.getAlcohol() >= 10) {
+//            if (evt.getKeyCode() == 37 || evt.getKeyCode() == 38 || evt.getKeyCode() == 39 || evt.getKeyCode() == 40) {
+//                ant.HipMoveAnt();
+//                movementsAnt();
+//                bus = true;
+//                return;
+//            }
+//
+        if (ant.moveAnt(evt.getKeyCode())) {
             movementsAnt();
             return;
         } else {
@@ -238,6 +260,7 @@ public class Game_View extends javax.swing.JFrame {
         closeButton.setBorder(null);
         jLabelPanel.setFocusable(true);
         jLabelPanel.setOpaque(false);
+        nickNameLabel.setText(name);
         setIconImage(new ImageIcon(getClass().getResource("../icones/game.png")).getImage());
 
     }
@@ -250,6 +273,19 @@ public class Game_View extends javax.swing.JFrame {
     public void movementsAnt() {
         movements++;
         moveJLabel.setText(String.valueOf(movements));
+        if (ant.getHealth() == 0) {
+            stateLabel.setText("DIED");
+        }
+        healthLabel.setText(String.valueOf(ant.getHealth()));
+        
+        if (ant.getAlcohol() >= 50) {
+            stateLabel.setText("DIED");
+        }
+        alcoholLabel.setText(String.valueOf(ant.getAlcohol()));
+        stateLabel.setText(ant.getState());
+        if(ant.getState() == "Poisoned"){
+            poisonLabel.setText(String.valueOf(ant.getPoison()));
+        }
         alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/move.WAV"));
         alert.play();
     }
@@ -321,7 +357,7 @@ public class Game_View extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game_View(0, 0, 0).setVisible(true);
+                new Game_View(0, 0, 0,null).setVisible(true);
             }
         });
     }
@@ -336,10 +372,13 @@ public class Game_View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jLabelPanel;
     private javax.swing.JLabel moveJLabel;
-    private javax.swing.JLabel posionLabel;
+    private javax.swing.JLabel nickNameLabel;
+    private javax.swing.JLabel poisonLabel;
     private javax.swing.JButton settingsButton;
+    private javax.swing.JLabel stateLabel;
     // End of variables declaration//GEN-END:variables
 
 }

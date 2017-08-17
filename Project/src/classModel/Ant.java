@@ -17,7 +17,8 @@ import view.Game_View;
  */
 public class Ant implements MoveAnt {
 
-    private int salud;
+    private String nickName;
+    private int health;
     private int alcohol;
     private int poison;
     private String state;
@@ -26,18 +27,32 @@ public class Ant implements MoveAnt {
     ArrayList moveX = new ArrayList();
     ArrayList moveY = new ArrayList();
     boolean bus = false;
+    int poisonCont = 0;
 
     public Ant() {
-        this.salud = 100;
+        this.nickName = nickName;
+        this.health = 100;
         this.alcohol = 0;
-        this.poison = 0;
+        this.poison = 3;
         this.state = "Sober";
         this.column = column;
         this.row = row;
     }
 
-    public void setSalud(int salud) {
-        this.salud = salud;
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getPoison() {
+        return poison;
+    }
+
+    public void setPoison(int poison) {
+        this.poison = poison;
     }
 
     public int getAlcohol() {
@@ -115,12 +130,11 @@ public class Ant implements MoveAnt {
             Game_View.alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/win.WAV"));
             Game_View.alert.play();
             Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoF.jpg")));
-            
+
         }
         return bus;
 
     }
-
 
     @Override
     public boolean HipMoveAnt() {
@@ -168,20 +182,20 @@ public class Ant implements MoveAnt {
             Game_View.alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/win.WAV"));
             Game_View.alert.play();
             Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoF.jpg")));
-            
+
         }
         return bus;
     }
-    
+
     public void upMove(int event) {
-        
+
         if (event == Game_View.position) {
             bus = false;
 
         } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[0][Game_View.y]) {
             bus = false;
 
-        } else {           
+        } else {
             moveX.add(Game_View.x);
             moveY.add(Game_View.y);
             Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
@@ -195,7 +209,7 @@ public class Ant implements MoveAnt {
     }
 
     public void downMove(int event) {
-        
+
         if (event == Game_View.position) {
             bus = false;
 
@@ -216,14 +230,14 @@ public class Ant implements MoveAnt {
     }
 
     public void rightMove(int event) {
-        
+
         if (KeyEvent.VK_RIGHT == Game_View.position) {
             bus = false;
 
         } else if (Game_View.labels[Game_View.x][Game_View.y] == Game_View.labels[Game_View.x][column - 1]) {
             bus = false;
 
-        } else {   
+        } else {
             moveX.add(Game_View.x);
             moveY.add(Game_View.y);
             Game_View.labels[Game_View.x][Game_View.y].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fondoC.jpg")));
@@ -237,7 +251,7 @@ public class Ant implements MoveAnt {
     }
 
     public void leftMove(int event) {
-        
+
         if (KeyEvent.VK_LEFT == Game_View.position) {
             bus = false;
 
@@ -256,23 +270,96 @@ public class Ant implements MoveAnt {
 
         }
     }
-    
-    public void verifyCubes(){
-        switch (Game_View.labelsLogic[Game_View.x][Game_View.y]) {
-            case 3:
-                salud += 10;
-                System.out.println(salud);
-                break;
-            case 4:
-                alcohol += 1;
-                System.out.println(alcohol);
-                break;
-            case 5:
-                poison += 10;
-                System.out.println(poison);
-                break;
-            default:
-                break;
+
+    public void verifyCubes() {
+        int i = 0;
+        if (state == "Poisoned") {
+            
+            if (poisonCont <= 3) {
+                poisonCont++;
+                
+                if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 0) {
+                    health += 10;
+                    poisonCont++;
+                    poison --;
+                } else if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 3) {
+                    health += 20;
+                    poisonCont++;
+                    poison--;
+                    Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+                } else if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 4 || Game_View.labelsLogic[Game_View.x][Game_View.y] == 5) {
+                    state = "Died";
+                    Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+                }
+            } else {
+                poisonCont = 0;
+                if(alcohol >= 0){
+                    state = "Durnk"; 
+                }
+                else{
+                    state = "Sober";
+                }
+                
+            }
         }
+        else if (alcohol == 0) {
+
+            if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 3) {
+                health += 10;
+                Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+                return;
+            } else if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 4) {
+                alcohol += 20;
+                if (health >= 10) {
+                    health -= 10;
+                }
+                Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+                state = "Drunk";
+                return;
+            }
+        } else if (alcohol > 0) {
+
+            if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 0) {
+                if (alcohol >= 10) {
+                    alcohol -= 10;
+                }
+            } else if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 3) {
+                health += 10;
+                if (alcohol >= 10) {
+                    alcohol -= 10;
+                }
+                Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+            } else if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 4) {
+                alcohol += 20;
+                if (health >= 20) {
+                    health -= 20;
+                }
+                Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+            } else if (Game_View.labelsLogic[Game_View.x][Game_View.y] == 5) {
+                if (health >= 50) {
+                    health -= 50;
+                    state = "Poisoned";
+                    i = 1;
+                }
+                Game_View.labelsLogic[Game_View.x][Game_View.y] = 0;
+            }
+        } 
+        if(state == "Died"){
+            state = "Died";
+            return;
+        }
+        else if(state == "Poisoned" ){
+            state = "Poisoned";
+            return;
+        }
+        else if (alcohol > 0) {
+            state = "Drunk";
+            return;
+        }
+        else if (alcohol == 0) {
+            state = "Sober";
+            return;
+        }
+        
     }
 }

@@ -22,9 +22,11 @@ public class Setting_View extends javax.swing.JFrame {
     int row = 0;
     int column = 0;
     int cube = 0;
+    String name = "";
     Ant ant = new Ant();
     
-    public Setting_View(int rows, int columns, int cubes) {
+    public Setting_View(int rows, int columns, int cubes, String nickname) {
+        name = nickname;
         row = rows;
         column = columns;
         cube = cubes;
@@ -114,14 +116,14 @@ public class Setting_View extends javax.swing.JFrame {
         });
         jPanel1.add(returnButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 50));
 
-        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close (2).png"))); // NOI18N
+        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close1.png"))); // NOI18N
         closeButton.setFocusable(false);
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 0, 50, 50));
+        jPanel1.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 80, 70));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 780));
 
@@ -133,7 +135,7 @@ public class Setting_View extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
-        Game_View view = new Game_View(row,column, cube);
+        Game_View view = new Game_View(row,column, cube,name);
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -196,7 +198,7 @@ public class Setting_View extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Setting_View(0,0,0).setVisible(true);
+                new Setting_View(0,0,0,null).setVisible(true);
             }
         });
     }

@@ -7,6 +7,7 @@ package project;
 
 import view.Game_View;
 import javax.swing.JFrame;
+import view.NewGame;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Project {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game_View view = new Game_View(7,7,5);
+        NewGame view = new NewGame();
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
