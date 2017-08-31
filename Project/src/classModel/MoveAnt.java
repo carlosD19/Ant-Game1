@@ -9,6 +9,7 @@ package classModel;
  *
  * @author pc
  */
+//This interface is to create moves method
 public interface MoveAnt {
     
     public boolean moveAnt(int move);

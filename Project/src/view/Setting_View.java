@@ -6,6 +6,14 @@
 package view;
 
 import classModel.Ant;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import project.Project;
@@ -24,7 +32,7 @@ public class Setting_View extends javax.swing.JFrame {
     int cube = 0;
     String name = "";
     Ant ant = new Ant();
-    
+
     public Setting_View(int rows, int columns, int cubes, String nickname) {
         name = nickname;
         row = rows;
@@ -32,7 +40,7 @@ public class Setting_View extends javax.swing.JFrame {
         cube = cubes;
         initComponents();
         remove_backGround();
-        
+
     }
 
     /**
@@ -53,7 +61,6 @@ public class Setting_View extends javax.swing.JFrame {
         cubeComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        returnButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,13 +84,13 @@ public class Setting_View extends javax.swing.JFrame {
 
         rowComboBox.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         rowComboBox.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        rowComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11" }));
+        rowComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10" }));
         rowComboBox.setFocusable(false);
         jPanel1.add(rowComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 80, -1));
 
         columnComboBox.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         columnComboBox.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        columnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
+        columnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" }));
         columnComboBox.setFocusable(false);
         jPanel1.add(columnComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 80, -1));
 
@@ -107,15 +114,6 @@ public class Setting_View extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 150, 120));
 
-        returnButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/back.png"))); // NOI18N
-        returnButton.setFocusable(false);
-        returnButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnButtonActionPerformed(evt);
-            }
-        });
-        jPanel1.add(returnButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 50));
-
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close1.png"))); // NOI18N
         closeButton.setFocusable(false);
         closeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -129,19 +127,23 @@ public class Setting_View extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //This button is to open game view
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         gameSettings();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
-        Game_View view = new Game_View(row,column, cube,name);
+        
+        try {
+            i();
+        } catch (IOException ex) {
+            Logger.getLogger(Setting_View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Game_View view = new Game_View(row, column, cube, name);
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dispose();
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    }//GEN-LAST:event_returnButtonActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         System.exit(0);
@@ -149,28 +151,53 @@ public class Setting_View extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public void gameSettings(){
+    
+    //This method is to modify rows,colums and cubes
+    public void i () throws IOException{
+        
+        File file = new File("Setting.txt");
+        String list = String.valueOf(cube) + "," + String.valueOf(row) + "," + String.valueOf(column);
+        FileWriter write= new FileWriter(file);
+        try{
+            String temp;
+            try(BufferedReader bf = new BufferedReader(new FileReader(file))){
+                String bfRead;
+                while((bfRead = bf.readLine())!= null){
+                    temp=bfRead;
+                    if (temp.equals(list)){
+                        BufferedWriter bfw= new BufferedWriter(new FileWriter(file));
+                        continue;
+                    } 
+                    write.write(temp+ "\r\n"); 
+                }write.write(list +"\r\n");
+                write.close();
+            }
+        }catch (IOException e){
+            System.out.println("No se encontro el archivo"+e);
+            
+        }
+    }
+    //This method is to get rows , columns and cubes values
+    public void gameSettings() {
         row = Integer.parseInt(rowComboBox.getSelectedItem().toString());
         column = Integer.parseInt(columnComboBox.getSelectedItem().toString());
         cube = Integer.parseInt(cubeComboBox.getSelectedItem().toString());
-        
         ant.setRow(row);
         ant.setColumn(column);
         
     }
-    
+    //This method is to delete backgroung
     public void remove_backGround() {
         closeButton.setContentAreaFilled(false);
         closeButton.setBorder(null);
-        returnButton.setContentAreaFilled(false);
-        returnButton.setBorder(null);
         jButton1.setContentAreaFilled(false);
         jButton1.setBorder(null);
         setIconImage(new ImageIcon(getClass().getResource("../icones/game.png")).getImage());
 
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -198,7 +225,7 @@ public class Setting_View extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Setting_View(0,0,0,null).setVisible(true);
+                new Setting_View(0, 0, 0, null).setVisible(true);
             }
         });
     }
@@ -213,7 +240,6 @@ public class Setting_View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton returnButton;
     private javax.swing.JComboBox<String> rowComboBox;
     // End of variables declaration//GEN-END:variables
 }

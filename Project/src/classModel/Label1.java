@@ -12,6 +12,7 @@ import javax.swing.JLabel;
  *
  * @author pc
  */
+//This class is to create the labels
 public class Label1 extends JLabel {
     
     public Label1(int posX, int posY, int ancho, int largo){
