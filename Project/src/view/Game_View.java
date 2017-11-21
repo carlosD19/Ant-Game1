@@ -218,7 +218,7 @@ public class Game_View extends javax.swing.JFrame {
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
-    
+
     //This button is to open setting view
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         Setting_View view = new Setting_View(row, column, cube, name);
@@ -227,7 +227,7 @@ public class Game_View extends javax.swing.JFrame {
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         dispose();
     }//GEN-LAST:event_settingsButtonActionPerformed
-    
+
     //This method is to call move method
     private void jLabelPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabelPanelKeyPressed
         if (ant.getState() != "Dead") {
@@ -257,7 +257,7 @@ public class Game_View extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jLabelPanelKeyPressed
-    
+
     //This button is to open new game
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -304,6 +304,7 @@ public class Game_View extends javax.swing.JFrame {
         //Chage the last position
         labels[row - 1][column - 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/meta1.jpg")));
     }
+
     //This method is to delete background
     public void remove_backGround() {
         settingsButton.setContentAreaFilled(false);
@@ -316,17 +317,20 @@ public class Game_View extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("../icones/game.png")).getImage());
 
     }
+
     //This method is to play error sound
     public void errorSound() {
         alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/error.wav"));
         alert.play();
     }
+
     //This method is to set movements
     public void movementsAnt() {
-        movements++;     
+        movements++;
     }
+
     //This method is to set Text and set Bar
-    public void setTexts(){
+    public void setTexts() {
         if (ant.getHealth() == 0) {
             stateLabel.setText("DEAD");
         }
@@ -346,12 +350,13 @@ public class Game_View extends javax.swing.JFrame {
         alert = java.applet.Applet.newAudioClip(getClass().getResource("/icones/move.WAV"));
         alert.play();
 
-        if (ant.getState().equals("Dead") || ant.getState().equals("Winner")) {      
+        if (ant.getState().equals("Dead") || ant.getState().equals("Winner")) {
             FinalView view = new FinalView(row, column, cube, name, movements);
             view.setLocationRelativeTo(null);
             view.setVisible(true);
         }
     }
+
     //This method is to create random cubes
     public void random() {
         int l = 1;
@@ -387,19 +392,9 @@ public class Game_View extends javax.swing.JFrame {
                 j++;
             }
         }
+    }
 
-        printLabel();
-    }
-    //This method is to print labels
-    public void printLabel() {
-        for (int n = 0; n < labelsLogic.length; n++) {
-            for (int o = 0; o < labelsLogic[n].length; o++) {
-                System.out.print(labelsLogic[n][o] + " ");
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-    }
+
     //This method is to set all Atributes
     public void setAtri() {
         ant.setAlcohol(0);
